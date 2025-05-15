@@ -2,21 +2,19 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import { BrowserRouter } from 'react-router-dom';
 import './index.scss';
-import App from './app';
 import { Provider } from './context';
+import { AuthProvider } from './context/AuthContext';
+import AppRoutes from './routes';
 
 createRoot(document.getElementById("root") as HTMLElement).render(
 	<BrowserRouter>
-		<Routes>
-			<Route path="*" element={
-				<Provider>
-					<App />
-					<ToastContainer position="top-center" theme="dark" />
-				</Provider>
-			} />
-		</Routes>
+		<AuthProvider>
+			<Provider>
+				<AppRoutes />
+				<ToastContainer position="top-center" theme="dark" />
+			</Provider>
+		</AuthProvider>
 	</BrowserRouter>
 );

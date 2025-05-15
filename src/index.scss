@@ -161,6 +161,51 @@ code {
     background-color: lawngreen;
     cursor: pointer;
   }
+
+  .auth-buttons {
+    display: flex;
+    gap: 10px;
+    margin-right: 10px;
+
+    button {
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      border: none;
+      color: #fff;
+
+      &.login-btn {
+        background-color: #5c6cff;
+        &:hover {
+          background-color: #4250c9;
+        }
+      }
+
+      &.signup-btn {
+        background-color: #4CAF50;
+        &:hover {
+          background-color: #3d8b40;
+        }
+      }
+    }
+  }
+
+  .logout-btn {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #f44336;
+    border: none;
+    color: #fff;
+    margin-left: 10px;
+
+    &:hover {
+      background-color: #d32f2f;
+    }
+  }
 }
 
 .recharge{
@@ -393,6 +438,50 @@ code {
       width: 190px;
       height: 190px;
       animation: rotate 1s linear infinite;
+    }
+
+    .loading-message {
+      color: #fff;
+      font-size: 18px;
+      margin: 15px 0;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .connection-error {
+      color: #ff4444;
+      font-size: 24px;
+      font-weight: bold;
+      margin: 20px 0 10px;
+      text-align: center;
+    }
+
+    .connection-message {
+      color: #888;
+      font-size: 16px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .waiting {
+      width: 200px;
+      height: 4px;
+      background-color: #333;
+      border-radius: 2px;
+      overflow: hidden;
+      margin: 10px 0;
+
+      div {
+        height: 100%;
+        background-color: #4CAF50;
+        transition: width 0.3s ease-out;
+      }
+    }
+
+    p {
+      color: #888;
+      margin: 5px 0 0;
+      font-size: 14px;
     }
   }
 }

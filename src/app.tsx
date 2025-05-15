@@ -1,25 +1,24 @@
 import React from "react";
+import { ToastContainer } from 'react-toastify';
 import Header from "./components/header";
 import BetsUsers from "./components/bet-users";
 import Main from "./components/Main";
-// import { useCrashContext } from "./components/Main/context";
 import propeller from "./assets/images/propeller.png";
-
 import Context from "./context";
-import { ContactMeTelegram } from "./components/cTelegram";
-// import "./App.scss";
+import { useAuth } from "./context/AuthContext";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const { unityLoading, currentProgress, rechargeState } =
-    React.useContext(Context);
+  const { unityLoading, currentProgress, rechargeState } = React.useContext(Context);
+  const { isAuthenticated } = useAuth();
+
   return (
     <div className="main-container">
-      <ContactMeTelegram />
       {!unityLoading && (
         <div className="myloading">
           <div className="loading-container">
             <div className="rotation">
-              <img alt="propeller" src={propeller}></img>
+              <img alt="propeller" src={propeller} />
             </div>
             <div className="waiting">
               <div
@@ -30,7 +29,7 @@ function App() {
           </div>
         </div>
       )}
-      {rechargeState && (
+      {rechargeState && isAuthenticated && (
         <div className="recharge">
           <div className="recharge-body">
             <div className="recharge-body-font">
@@ -47,6 +46,17 @@ function App() {
         <BetsUsers />
         <Main />
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

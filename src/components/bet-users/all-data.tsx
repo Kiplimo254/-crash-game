@@ -1,38 +1,20 @@
 import React from "react"
-import Context, { BettedUserType, UserType } from "../../context";
+import Context from "../../context";
+import { BettedUserType } from "../../types/context";
 // import { useCrashContext } from "../Main/context";
 
 interface AllDataProps {
     pre: boolean
     setPre: React.Dispatch<React.SetStateAction<boolean>>
-    allData: UserType[] | BettedUserType[]
+    allData: BettedUserType[]
 }
 
-const AllData = ({ pre, setPre, allData }: AllDataProps) => {
+const AllData: React.FC<AllDataProps> = ({ pre, setPre, allData }) => {
     const state = React.useContext(Context)
     // const [state] = useCrashContext();
 
     return (
-        <>
-            <div>
-                <div className="all-bets-block">
-                    <div>
-                        <div className="uppercase">ALL BETS</div>
-                        <div>{state.bettedUsers?.length}</div>
-                    </div>
-                    <div className={`previous-hand items-center flex justify-between ${pre ? "click" : ""}`}>
-                        <div className="history-i"></div>
-                        <span className="ml-1 " onClick={() => { setPre(!pre) }}>Previous hand</span>
-                    </div>
-                </div>
-                <div className="spacer"></div>
-                <div className="legend">
-                    <span className="user">User</span>
-                    <span className="bet">Bet, INR</span>
-                    <span>X</span>
-                    <span className="cash-out">Cash out, INR</span>
-                </div>
-            </div>
+        <div className="data-list">
             <div className="cdk-virtual-scroll-viewport">
                 <div className="cdk-virtual-scroll-content-wrapper">
                     {allData?.map((user, key) => (
@@ -57,7 +39,7 @@ const AllData = ({ pre, setPre, allData }: AllDataProps) => {
                     ))}
                 </div>
             </div>
-        </>
+        </div>
     )
 };
 

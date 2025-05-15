@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import MoonLoader from "react-spinners/MoonLoader";
+import { MoonLoader } from "react-spinners";
 import "./bets.scss";
-import { config } from "../../config";
+import { API_BASE_URL, API_ENDPOINTS } from "../../config/env";
 
 const TopHistory = () => {
   const [type, setType] = React.useState(0);
@@ -11,7 +11,22 @@ const TopHistory = () => {
   const callDate = async (date: string) => {
     try {
       setLoadingEffect(true);
-      const response = await fetch(`${config.api}/get-${date}-history`);
+      let endpoint = '';
+      switch (date) {
+        case 'day':
+          endpoint = API_ENDPOINTS.HISTORY.DAY;
+          break;
+        case 'month':
+          endpoint = API_ENDPOINTS.HISTORY.MONTH;
+          break;
+        case 'year':
+          endpoint = API_ENDPOINTS.HISTORY.YEAR;
+          break;
+        default:
+          endpoint = API_ENDPOINTS.HISTORY.DAY;
+      }
+      
+      const response = await fetch(`${API_BASE_URL}${endpoint}`);
       if (response.ok) {
         const data = await response.json();
         setHistory(data.data);
@@ -19,16 +34,20 @@ const TopHistory = () => {
           setLoadingEffect(false);
         }, 500);
       } else {
-        console.log(`HTTP error! status: ${response.status}`);
+        console.error(`HTTP error! status: ${response.status}`);
+        setLoadingEffect(false);
       }
-    } catch (error: any) {
-      console.log("callDate", error);
+    } catch (error) {
+      console.error("Error fetching history:", error);
+      setLoadingEffect(false);
     }
   };
+
   useEffect(() => {
     // Request of Day data
     callDate("day");
   }, []);
+
   return (
     <>
       <div className="navigation-switcher-wrapper">
